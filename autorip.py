@@ -519,6 +519,15 @@ def process_disc():
         staging_dir = Path(config.STAGING_BASE_DIR) / safe_slug
         staging_dir.mkdir(parents=True, exist_ok=True)
 
+        # Notify start
+        media = _media_label(disc_type)
+        tmdb_note = "" if movie else " ⚠️ no TMDB match"
+        post_discord(
+            f"⏳ **Ripping:** {movie_title} ({movie_year}) [{media}]"
+            f" — {main_title.get('duration_secs', 0) // 60}min"
+            f" + {len(short_titles)} extras{tmdb_note}"
+        )
+
         # 6. Rip
         if not rip_disc(safe_slug):
             log.error("Rip failed. Aborting.")
