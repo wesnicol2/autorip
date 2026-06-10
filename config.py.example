@@ -1,0 +1,14 @@
+TMDB_API_KEY = "your_tmdb_api_key"
+TMDB_READ_TOKEN = "your_tmdb_read_access_token"
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/..."
+
+MOVIES_DIR = "/mnt/user/data/media/Movies"
+STAGING_BASE_DIR = "/mnt/user/data/media/unsorted-media/makemkv-rips"
+MAKEMKV_CONTAINER = "MakeMKV"
+DEVICE = "/dev/sr0"
+
+AUTORIP_DIR = "/mnt/user/appdata/autorip"
+LOG_DIR = "/mnt/user/appdata/autorip/logs"
+LOCK_FILE = "/tmp/autorip.lock"
+
+POLL_INTERVAL_SECS = 60
