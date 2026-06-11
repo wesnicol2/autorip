@@ -604,7 +604,16 @@ def _post_process(
                 title_obj = next((t for t in all_titles if t["index"] == idx), None)
 
         if title_obj is None:
-            log.warning("Cannot identify title for %s — skipping", f.name)
+            # File was ripped but not seen in the info scan — treat as extra
+            dest_extras.mkdir(parents=True, exist_ok=True)
+            n_extras_unmatched += 1
+            new_name = extra_filename(movie_title, movie_year,
+                                      f"Extra {n_extras_unmatched:02d}")
+            dest = dest_extras / new_name
+            shutil.move(str(f), str(dest))
+            log.info("  %s  ->  %s (unscanned extra)", f.name,
+                     dest.relative_to(Path(config.MOVIES_DIR)))
+            moved.append(str(dest))
             continue
 
         idx = title_obj["index"]
