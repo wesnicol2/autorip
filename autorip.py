@@ -514,7 +514,13 @@ def process_disc():
                  main_title["index"], main_title.get("duration_secs", 0) // 60,
                  len(cut_titles), len(short_titles))
 
-        # 5. Set up staging directory
+        # 5. Check if already ripped
+        dest_rips = Path(config.MOVIES_DIR) / f"{_safe(movie_title)} ({movie_year})" / "MakeMKV Rips"
+        if dest_rips.exists():
+            log.info("Already ripped — %s exists, skipping", dest_rips)
+            return True
+
+        # Set up staging directory
         safe_slug = re.sub(r"[^a-z0-9_-]", "_", disc_title.lower())[:40].strip("_")
         staging_dir = Path(config.STAGING_BASE_DIR) / safe_slug
         staging_dir.mkdir(parents=True, exist_ok=True)
