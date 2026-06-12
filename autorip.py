@@ -469,6 +469,7 @@ def process_disc():
         titles = info["titles"]
         if not titles:
             log.error("No titles found on disc. Aborting.")
+            Path(_COOLDOWN_FILE).write_text(str(time.time()))
             return False
 
         # 2. Identify long titles (≥60 min = main feature candidates)
